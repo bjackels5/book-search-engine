@@ -6,6 +6,8 @@ import Auth from '../utils/auth';
 import { SAVE_BOOK } from '../utils/mutations';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
+import { FaGooglePlay } from 'react-icons/fa';
+
 const searchGoogleBooks = (query) => {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
 };
@@ -49,7 +51,7 @@ const SearchBooks = () => {
                 title: book.volumeInfo.title,
                 description: book.volumeInfo.description,
                 image: book.volumeInfo.imageLinks?.thumbnail || '',
-                link: book.selfLink
+                link: book.volumeInfo.infoLink
             }));
 
             setSearchedBooks(bookData);
@@ -125,6 +127,9 @@ const SearchBooks = () => {
                                 ) : null}
                                 <Card.Body>
                                     <Card.Title>{book.title}</Card.Title>
+                                    <a href={book.link} target="_blank" rel="noopener noreferrer">
+                                        <FaGooglePlay /> Google Book Listing
+                                    </a>
                                     <p className='small'>Authors: {book.authors}</p>
                                     <Card.Text>{book.description}</Card.Text>
                                     {Auth.loggedIn() && (
