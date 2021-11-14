@@ -5,7 +5,6 @@ import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'reac
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 import { SAVE_BOOK } from '../utils/mutations';
-// import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -47,7 +46,9 @@ const SearchBooks = () => {
                 title: book.volumeInfo.title,
                 description: book.volumeInfo.description,
                 image: book.volumeInfo.imageLinks?.thumbnail || '',
+                link: book.selfLink
             }));
+            bookData.map((book => { console.log(book)}));
 
             setSearchedBooks(bookData);
             setSearchInput('');
@@ -59,20 +60,26 @@ const SearchBooks = () => {
     // create function to handle saving a book to our database
     const handleSaveBook = async (bookId) => {
         // find the book in `searchedBooks` state by the matching id
+        console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@ handleSaveBook`);
+
         const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+        console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@ bookToSave: ${JSON.stringify(bookToSave)}`);
 
         // get token
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
         if (!token) {
+            console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@ token not found`);
             return false;
         }
 
+        console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@ logged in and token retrieved`);
         try {
             await saveBook({
-                variables: { bookToSave }
+                variables: { input: bookToSave }
             });
 
+            console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@ book saved`);
             // if book successfully saves to user's account, save book id to state
             setSavedBookIds([...savedBookIds, bookToSave.bookId]);
         } catch (err) {
