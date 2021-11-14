@@ -8,6 +8,8 @@ import { useQuery, useMutation } from '@apollo/client';
 
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
+import { FaGooglePlay } from 'react-icons/fa';
+
 
 const SavedBooks = () => {
     const { loading, data } = useQuery(QUERY_ME);
@@ -22,7 +24,6 @@ const SavedBooks = () => {
             return false;
         }
 
-        console.log(`@@@@@@@@@ handleDeleteBook - token ok, removing book with id ${bookId}`);
         try {
             await removeBook({
                 variables: { bookId: bookId }
@@ -58,6 +59,9 @@ const SavedBooks = () => {
                                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
                                 <Card.Body>
                                     <Card.Title>{book.title}</Card.Title>
+                                    <a href={book.link} target="_blank" rel="noopener noreferrer">
+                                        <FaGooglePlay /> Google Book Listing
+                                    </a>
                                     <p className='small'>Authors: {book.authors}</p>
                                     <Card.Text>{book.description}</Card.Text>
                                     <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
