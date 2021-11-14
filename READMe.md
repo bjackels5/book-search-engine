@@ -33,6 +33,8 @@ This challenge for Module 21 of the Coding Bootcamp is to refactor a fully funct
 
 If I had more time before this is due and before I need to start working on project 3, I'd DRY out the SearchBooks and SavedBooks pages to have the book list as a separate component that they could each include. I'd also change a lot of the styling. I love Bootstrap for placing things where I want them to go, but I don't really like the default colors and styles.
 
+I would also get everything working with the latest releases of all the included technology so I could get rid of all the deprecation warnings. Since the supplied starter code has deprection warnings, so does my project. 
+
 I can see myself using this to track what books I own and which ones are on my wish list. Yes, I know I could use something like GoodReads to do that, but GoodReads doesn't work exactly how I want it to. Plus, it's not private by default. I'd add the ability to tag each book with read vs. unread, did I like it or not, and other stuff, too. I'd want to be able to search, filter, and sort my list by those tags. I'd also want to be able to export my lists to a spreadsheet or even just a csv. I could just do most of this with a spreadsheet, but I like being able to search the Google Books and then clicking a button to add it to my list.
 
 ---
